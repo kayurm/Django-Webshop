@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="container">
+        <h1 class="header center">Главная</h1>
+        <div class="row">
+            <div class="col">
+                {% for category in category_list %}
+                    {% comment %} <a href="{% url 'category-detail' category.slug %}">{{ category.title }}</a> {% endcomment %}
+                    <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            {% for product in product_list %}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            {% if product.image %}
+                                <img class="activator" src="{{ product.image.url }}">
+                            {% else %}
+                                <img class="activator" src="{% static 'img/no_img.png' %}">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">{{ product.title }}<i class="material-icons right">more_vert</i></span>
+                            <a class="waves-effect waves-teal btn-flat">{{ product.price }} грн.</a>
+                            <a class="waves-effect waves-light btn indigo darken-4">Купить</a>
+                            <a class="waves-effect waves-light btn indigo darken-4" href="{{ product.get_absolute_url }}">Подробнее</a>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{ product.title }}<i class="material-icons right">close</i></span>
+                            <p>{{ product.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main %}

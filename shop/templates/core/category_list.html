@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="container">
+        <h1 class="header center">Главная</h1>
+        <div class="row">
+            <div class="col">
+                {% for category in category_list %}
+                    <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            {% for category in category_list %}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">{{ category.title }}<i class="material-icons right">more_vert</i></span>
+                            <a class="waves-effect waves-light btn indigo darken-4" href="{{ category.get_absolute_url }}">Товары</a>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{ category.title }}<i class="material-icons right">close</i></span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main %}
